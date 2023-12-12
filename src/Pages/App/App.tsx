@@ -5,13 +5,14 @@ import { MyOrder } from '../MyOrder/MyOrder';
 import { MyOrders } from '../MyOrders/MyOrders';
 import { NotFound } from '../NotFound/NotFound';
 import { SingIn } from '../SignIn/SingIn';
+import { Navbar } from '../../Components/Navbar/Navbar';
 
 import './App.css'
 
 type Props = {};
 type MyRoutes = Array<{ path: string, element: JSX.Element }>;
 
-const AppRoutes = () => {
+const AppRoutes = (): JSX.Element | null => {
 
     const routesPath: MyRoutes = [
         { path: '/', element: <Home /> },
@@ -27,12 +28,12 @@ const AppRoutes = () => {
     return routes;
 }
 
-
 export const App = (props: Props): JSX.Element => {
 
 
     return (
         <BrowserRouter>
+            <Navbar />
             <AppRoutes />
         </BrowserRouter>
     )
