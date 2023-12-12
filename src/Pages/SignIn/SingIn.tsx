@@ -1,6 +1,8 @@
 import './SingIn.css'
 
-export function SingIn() {
+
+type Props = {};
+export function SingIn(props: Props): JSX.Element {
 
     return (
         <div>

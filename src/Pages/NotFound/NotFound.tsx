@@ -1,6 +1,7 @@
 import './NotFound.css'
 
-export function NotFound() {
+type Props = {}
+export function NotFound(props: Props): JSX.Element {
 
     return (
         <div>

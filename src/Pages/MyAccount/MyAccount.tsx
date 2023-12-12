@@ -1,6 +1,8 @@
 import './MyAccount.css'
 
-export function MyAccount() {
+type Props = {};
+
+export function MyAccount(props: Props): JSX.Element {
 
     return (
         <div>

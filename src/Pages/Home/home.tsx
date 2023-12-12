@@ -1,10 +1,12 @@
 import './home.css'
 
-export function Home() {
+type Props = {}
+
+export function Home(props: Props): JSX.Element {
 
     return (
         <div>
-            <h1>Home</h1>
+            <h1>Home XFC</h1>
         </div>
     )
 }

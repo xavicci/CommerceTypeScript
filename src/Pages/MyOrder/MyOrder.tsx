@@ -1,7 +1,7 @@
-import './MyOrders.css'
+import './MyOrder.css'
 
 type Props = {}
-export function MyOrders(props: Props): JSX.Element {
+export function MyOrder(props: Props): JSX.Element {
 
     return (
         <div>
