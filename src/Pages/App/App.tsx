@@ -7,8 +7,7 @@ import { NotFound } from '../NotFound/NotFound';
 import { SingIn } from '../SignIn/SingIn';
 import './App.css'
 import { Navbar } from '../../Components/Navbar/Navbar';
-
-type Props = {};
+import { Props } from '../../Global/globalConst';
 
 const AppRoutes = (): JSX.Element | null => {
 
@@ -26,12 +25,12 @@ const AppRoutes = (): JSX.Element | null => {
     return routes;
 }
 
-export const App = (props: Props): JSX.Element => {
+export const App = ({ }: Props): JSX.Element => {
 
     return (
         <BrowserRouter>
-            <Navbar />
             <AppRoutes />
+            <Navbar />
         </BrowserRouter>
     )
 }
