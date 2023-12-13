@@ -1,11 +1,12 @@
-import './NotFound.css'
+import { Layout } from '../../Components/Layout/Layout';
+import './NotFound.css';
 
 type Props = {}
 export function NotFound(props: Props): JSX.Element {
 
     return (
-        <div>
+        <Layout>
             <h1>NotFound</h1>
-        </div>
+        </Layout>
     )
 }

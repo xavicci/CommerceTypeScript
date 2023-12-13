@@ -1,12 +1,18 @@
+import { Layout } from '../../Components/Layout/Layout';
+import { Card } from '../../Components/Card/Card';
 import './home.css'
 
-type Props = {}
+type Props = { children?: React.ReactNode };
 
-export function Home(props: Props): JSX.Element {
+export function Home({ }: Props): JSX.Element {
 
     return (
-        <div>
-            <h1>Home XFC</h1>
-        </div>
+
+        <Layout>
+            Home
+            <Card />
+        </Layout>
+
+
     )
 }

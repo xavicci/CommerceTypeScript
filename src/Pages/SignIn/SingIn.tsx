@@ -1,12 +1,13 @@
-import './SingIn.css'
+import { Layout } from '../../Components/Layout/Layout';
+import './SingIn.css';
 
 
 type Props = {};
 export function SingIn(props: Props): JSX.Element {
 
     return (
-        <div>
+        <Layout>
             <h1>SingIn</h1>
-        </div>
+        </Layout>
     )
 }

@@ -1,11 +1,12 @@
-import './MyOrders.css'
+import { Layout } from '../../Components/Layout/Layout';
+import './MyOrders.css';
 
 type Props = {}
 export function MyOrders(props: Props): JSX.Element {
 
     return (
-        <div>
+        <Layout>
             <h1>MyOrders</h1>
-        </div>
+        </Layout>
     )
 }
