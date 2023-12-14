@@ -1,3 +1,4 @@
+import { useShoppingContext } from "../../Context/Context";
 import { NavLink } from "react-router-dom"
 
 
@@ -5,6 +6,7 @@ type Props = { children?: React.ReactNode };
 
 export const Navbar = ({ }: Props): JSX.Element => {
 
+    const { count } = useShoppingContext();
     let activeStyle: string = 'underline underline-offset-4';
 
     return (
@@ -96,7 +98,7 @@ export const Navbar = ({ }: Props): JSX.Element => {
                     </NavLink>
                 </li>
                 <li>
-                    :car 0
+                    :car {count}
                 </li>
             </ul>
         </nav>
