@@ -5,7 +5,10 @@ import { Props } from "../Global/globalConst";
 interface countContext {
     count: number,
     setCount: React.Dispatch<React.SetStateAction<number>>,
-    incrementCount: () => void,
+    incrementCount: (event: React.MouseEvent<HTMLDivElement>) => void,
+    isProductDetail: boolean,
+    openProductDetail: () => void,
+    closeProductDetail: () => void,
 };
 
 export const ShoppingCartContext = createContext<countContext | null>(null);
@@ -14,7 +17,17 @@ export const ShoppingCartProvider = ({ children }: Props) => {
 
     const [count, setCount] = useState<number>(0);
 
-    const incrementCount = (): void => {
+    const [isProductDetail, setIsProductDetail] = useState<boolean>(false);
+
+    const openProductDetail = (): void => {
+        setIsProductDetail(true);
+    }
+    const closeProductDetail = (): void => {
+        setIsProductDetail(false);
+    }
+
+    const incrementCount = (event: React.MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
         setCount(value => (value + 1));
     }
 
@@ -22,7 +35,11 @@ export const ShoppingCartProvider = ({ children }: Props) => {
         <ShoppingCartContext.Provider value={{
             count,
             setCount,
-            incrementCount
+            incrementCount,
+            isProductDetail,
+            openProductDetail,
+            closeProductDetail,
+
         }}>
             {children}
         </ShoppingCartContext.Provider>
@@ -42,5 +59,8 @@ export const useShoppingContext = (): countContext => {
         count: currentShoppingContext.count,
         setCount: currentShoppingContext.setCount,
         incrementCount: currentShoppingContext.incrementCount,
+        isProductDetail: currentShoppingContext.isProductDetail,
+        openProductDetail: currentShoppingContext.openProductDetail,
+        closeProductDetail: currentShoppingContext.closeProductDetail,
     };
 };

@@ -5,10 +5,10 @@ import { MyOrder } from '../MyOrder/MyOrder';
 import { MyOrders } from '../MyOrders/MyOrders';
 import { NotFound } from '../NotFound/NotFound';
 import { SingIn } from '../SignIn/SingIn';
-import './App.css'
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Props } from '../../Global/globalConst';
 import { ShoppingCartProvider } from '../../Context/Context';
+import './App.css';
 
 const AppRoutes = (): JSX.Element | null => {
 
@@ -29,7 +29,6 @@ const AppRoutes = (): JSX.Element | null => {
 export const App = ({ }: Props): JSX.Element => {
 
     return (
-
         <ShoppingCartProvider>
             <BrowserRouter>
                 <AppRoutes />
