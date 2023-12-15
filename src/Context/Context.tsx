@@ -1,6 +1,6 @@
 //CONTEXT.TSX
 import { useContext, createContext, useState } from "react";
-import { Props } from "../Global/globalConst";
+import { Items, Props } from "../Global/globalConst";
 
 interface countContext {
     count: number,
@@ -9,14 +9,24 @@ interface countContext {
     isProductDetail: boolean,
     openProductDetail: () => void,
     closeProductDetail: () => void,
+    productToShow: Items,
+    setProductToShow: React.Dispatch<React.SetStateAction<Items>>,
+    cartProducts: Array<Items>,
+    setCartProducts: React.Dispatch<React.SetStateAction<Array<Items>>>,
 };
 
 export const ShoppingCartContext = createContext<countContext | null>(null);
 
 export const ShoppingCartProvider = ({ children }: Props) => {
-
+    //Shopping Cart - Increment quantity
     const [count, setCount] = useState<number>(0);
 
+    const incrementCount = (event: React.MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        setCount(value => (value + 1));
+    }
+
+    //Product Detail - Open/Close
     const [isProductDetail, setIsProductDetail] = useState<boolean>(false);
 
     const openProductDetail = (): void => {
@@ -26,10 +36,12 @@ export const ShoppingCartProvider = ({ children }: Props) => {
         setIsProductDetail(false);
     }
 
-    const incrementCount = (event: React.MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation();
-        setCount(value => (value + 1));
-    }
+    //Product Detail - Show Products
+    const [productToShow, setProductToShow] = useState<Items>({} as Items);
+
+    //Shoppi . Add Products to Cart
+
+    const [cartProducts, setCartProducts] = useState<Array<Items>>([] as Array<Items>);
 
     return (
         <ShoppingCartContext.Provider value={{
@@ -39,6 +51,10 @@ export const ShoppingCartProvider = ({ children }: Props) => {
             isProductDetail,
             openProductDetail,
             closeProductDetail,
+            productToShow,
+            setProductToShow,
+            cartProducts,
+            setCartProducts,
 
         }}>
             {children}
@@ -62,5 +78,9 @@ export const useShoppingContext = (): countContext => {
         isProductDetail: currentShoppingContext.isProductDetail,
         openProductDetail: currentShoppingContext.openProductDetail,
         closeProductDetail: currentShoppingContext.closeProductDetail,
+        productToShow: currentShoppingContext.productToShow,
+        setProductToShow: currentShoppingContext.setProductToShow,
+        cartProducts: currentShoppingContext.cartProducts,
+        setCartProducts: currentShoppingContext.setCartProducts,
     };
 };

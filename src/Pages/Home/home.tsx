@@ -17,7 +17,7 @@ export function Home({ }: Props): JSX.Element {
     return (
         <Layout>
             Home
-            <div className='grid gap-4 grid-cols-4 w-full max-w-screen-lg'>
+            <div className='grid gap-8 grid-cols-4 w-full max-w-screen-lg'>
                 {
                     items?.map(value => <Card key={value.id} {...value} />)
                 }
