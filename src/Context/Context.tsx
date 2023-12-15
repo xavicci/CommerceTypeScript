@@ -13,6 +13,10 @@ interface countContext {
     setProductToShow: React.Dispatch<React.SetStateAction<Items>>,
     cartProducts: Array<Items>,
     setCartProducts: React.Dispatch<React.SetStateAction<Array<Items>>>,
+    isCheckoutSideMenuOpen: boolean,
+    openCheckOutMenu: () => void,
+    closeCheckOutMenu: () => void,
+
 };
 
 export const ShoppingCartContext = createContext<countContext | null>(null);
@@ -36,6 +40,17 @@ export const ShoppingCartProvider = ({ children }: Props) => {
         setIsProductDetail(false);
     }
 
+
+    //Checkout side menu - Open/Close
+    const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState<boolean>(false);
+
+    const openCheckOutMenu = (): void => {
+        setIsCheckoutSideMenuOpen(true);
+    }
+    const closeCheckOutMenu = (): void => {
+        setIsCheckoutSideMenuOpen(false);
+    }
+
     //Product Detail - Show Products
     const [productToShow, setProductToShow] = useState<Items>({} as Items);
 
@@ -55,6 +70,10 @@ export const ShoppingCartProvider = ({ children }: Props) => {
             setProductToShow,
             cartProducts,
             setCartProducts,
+            isCheckoutSideMenuOpen,
+            openCheckOutMenu,
+            closeCheckOutMenu,
+
 
         }}>
             {children}
@@ -82,5 +101,9 @@ export const useShoppingContext = (): countContext => {
         setProductToShow: currentShoppingContext.setProductToShow,
         cartProducts: currentShoppingContext.cartProducts,
         setCartProducts: currentShoppingContext.setCartProducts,
+        isCheckoutSideMenuOpen: currentShoppingContext.isCheckoutSideMenuOpen,
+        openCheckOutMenu: currentShoppingContext.openCheckOutMenu,
+        closeCheckOutMenu: currentShoppingContext.closeCheckOutMenu,
+
     };
 };

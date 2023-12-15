@@ -1,0 +1,17 @@
+.checkout-side-menu {
+    width: 360px;
+    height: calc(100vh - 68px);
+    top: 68px
+}
+
+.track {
+    background-color: #b40f0f;
+    border-radius: 5px;
+}
+
+.thumb {
+    width: 200px;
+    height: 200px;
+    background-color: #fff;
+    /* border-radius: 50%; */
+}

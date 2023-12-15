@@ -8,6 +8,7 @@ import { SingIn } from '../SignIn/SingIn';
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Props } from '../../Global/globalConst';
 import { ShoppingCartProvider } from '../../Context/Context';
+import { CheckOutSideMenu } from '../../Components/CheckoutSideMenu/CheckOutSideMenu';
 import './App.css';
 
 const AppRoutes = (): JSX.Element | null => {
@@ -25,7 +26,6 @@ const AppRoutes = (): JSX.Element | null => {
 
     return routes;
 }
-
 export const App = ({ }: Props): JSX.Element => {
 
     return (
@@ -33,6 +33,7 @@ export const App = ({ }: Props): JSX.Element => {
             <BrowserRouter>
                 <AppRoutes />
                 <Navbar />
+                <CheckOutSideMenu />
             </BrowserRouter>
         </ShoppingCartProvider>
     )

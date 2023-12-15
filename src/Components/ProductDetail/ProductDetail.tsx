@@ -29,7 +29,6 @@ export const ProductDetail = (): JSX.Element => {
                     <span className='font-medium text-md'>{productToShow.title}</span>
                 </p>
             </div>
-
         </aside>
     )
 }
