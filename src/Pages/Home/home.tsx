@@ -1,26 +1,40 @@
-import { useState, useEffect } from 'react';
 import { Layout } from '../../Components/Layout/Layout';
 import { Card } from '../../Components/Card/Card';
-import { useFetch } from '../../utils/useFetch';
-import { URL_API, Items, Props } from '../../Global/globalConst';
 import { ProductDetail } from '../../Components/ProductDetail/ProductDetail';
-import './home.css'
+import { useShoppingContext } from '../../Context/Context';
+import './home.css';
 
-export function Home({ }: Props): JSX.Element {
-    const [items, setItems] = useState<Array<Items>>([]);
+export function Home(): JSX.Element {
 
-    useEffect(() => {
-        const dataItems = useFetch(URL_API);
-        dataItems.then(setItems);
-    }, [URL_API]);
+    const { items, setSearchByTitle, searchByTitle, filteredItems } = useShoppingContext();
+
+    const renderView = () => {
+        if (searchByTitle?.length > 0) {
+            if (filteredItems?.length > 0) {
+                return (
+                    filteredItems?.map(value => <Card key={value.id} {...value} />)
+                )
+            } else {
+                return (<div> We don't have anything ...</div>)
+            }
+        } else {
+            return items?.map(value => <Card key={value.id} {...value} />)
+        }
+    }
 
     return (
         <Layout>
-            Home
+            <div className='flex items-center justify-center relative w-80'>
+                <h1 className='font-medium text-xl'>Exclusive products</h1>
+            </div>
+            <input
+                type="text"
+                placeholder='Search a product'
+                className='rounded-lg border border-black w-80 p-3 mt-2 mb-6 focus:outline-none'
+                onChange={(event) => setSearchByTitle(event.target.value)}
+            />
             <div className='grid gap-8 grid-cols-4 w-full max-w-screen-lg'>
-                {
-                    items?.map(value => <Card key={value.id} {...value} />)
-                }
+                {renderView()}
             </div>
             <ProductDetail />
         </Layout>

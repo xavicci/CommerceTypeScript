@@ -1,6 +1,8 @@
 //CONTEXT.TSX
-import { useContext, createContext, useState } from "react";
-import { Items, Props } from "../Global/globalConst";
+import { useContext, createContext, useState, useEffect } from "react";
+import { Items, Props, Order, URL_API } from "../Global/globalConst";
+import { useFetch } from "../utils/useFetch";
+
 
 interface countContext {
     count: number,
@@ -16,6 +18,14 @@ interface countContext {
     isCheckoutSideMenuOpen: boolean,
     openCheckOutMenu: () => void,
     closeCheckOutMenu: () => void,
+    order: Array<Order>,
+    setOrder: React.Dispatch<React.SetStateAction<Array<Order>>>,
+    items: Array<Items>,
+    setItems: React.Dispatch<React.SetStateAction<Array<Items>>>,
+    searchByTitle: string,
+    setSearchByTitle: React.Dispatch<React.SetStateAction<string>>,
+    filteredItems: Array<Items>,
+    setfilteredItems: React.Dispatch<React.SetStateAction<Array<Items>>>,
 
 };
 
@@ -58,6 +68,33 @@ export const ShoppingCartProvider = ({ children }: Props) => {
 
     const [cartProducts, setCartProducts] = useState<Array<Items>>([] as Array<Items>);
 
+    //Shoppi Cart. Order
+
+    const [order, setOrder] = useState<Array<Order>>([] as Array<Order>);
+
+    //Get products
+    const [items, setItems] = useState<Array<Items>>([]);
+    const [filteredItems, setfilteredItems] = useState<Array<Items>>([] as Array<Items>);
+
+    // Get products by title
+    const [searchByTitle, setSearchByTitle] = useState<string>('');
+
+    useEffect(() => {
+        const dataItems = useFetch(URL_API);
+        dataItems.then(setItems);
+    }, [URL_API]);
+
+    const filteredItemsByTitle = (items: Items[], searchByTitle: string) => {
+        return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLocaleLowerCase()))
+    }
+
+    useEffect(() => {
+        if (searchByTitle) {
+            setfilteredItems(filteredItemsByTitle(items, searchByTitle))
+        }
+
+    }, [items, searchByTitle]);
+
     return (
         <ShoppingCartContext.Provider value={{
             count,
@@ -73,8 +110,14 @@ export const ShoppingCartProvider = ({ children }: Props) => {
             isCheckoutSideMenuOpen,
             openCheckOutMenu,
             closeCheckOutMenu,
-
-
+            order,
+            setOrder,
+            items,
+            setItems,
+            searchByTitle,
+            setSearchByTitle,
+            filteredItems,
+            setfilteredItems,
         }}>
             {children}
         </ShoppingCartContext.Provider>
@@ -104,6 +147,13 @@ export const useShoppingContext = (): countContext => {
         isCheckoutSideMenuOpen: currentShoppingContext.isCheckoutSideMenuOpen,
         openCheckOutMenu: currentShoppingContext.openCheckOutMenu,
         closeCheckOutMenu: currentShoppingContext.closeCheckOutMenu,
-
+        order: currentShoppingContext.order,
+        setOrder: currentShoppingContext.setOrder,
+        items: currentShoppingContext.items,
+        setItems: currentShoppingContext.setItems,
+        searchByTitle: currentShoppingContext.searchByTitle,
+        setSearchByTitle: currentShoppingContext.setSearchByTitle,
+        filteredItems: currentShoppingContext.filteredItems,
+        setfilteredItems: currentShoppingContext.setfilteredItems,
     };
 };

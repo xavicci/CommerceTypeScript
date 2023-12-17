@@ -18,6 +18,8 @@ const AppRoutes = (): JSX.Element | null => {
         { path: '/my-account', element: <MyAccount /> },
         { path: '/my-order', element: <MyOrder /> },
         { path: '/my-orders', element: <MyOrders /> },
+        { path: '/my-orders/last', element: <MyOrder /> },
+        { path: '/my-orders/:id', element: <MyOrder /> },
         { path: '/sign-in', element: <SingIn /> },
         { path: '/*', element: <NotFound /> },
     ];
