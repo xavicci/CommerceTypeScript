@@ -5,7 +5,7 @@ import { OrderCard } from '../OrderCard/OrderCard';
 import { Items } from '../../Global/globalConst';
 import { totalPrice } from '../../utils/totalPrice';
 import { Link } from 'react-router-dom';
-import './checkOutSideMenu.css';
+import './CheckOutSideMenu.css';
 
 export const CheckOutSideMenu = (): JSX.Element => {
 
