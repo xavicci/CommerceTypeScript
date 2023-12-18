@@ -2,8 +2,7 @@ import { Layout } from '../../Components/Layout/Layout';
 import './SingIn.css';
 
 
-type Props = {};
-export function SingIn(props: Props): JSX.Element {
+export function SingIn(): JSX.Element {
 
     return (
         <Layout>

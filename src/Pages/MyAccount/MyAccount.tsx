@@ -1,9 +1,9 @@
 import { Layout } from '../../Components/Layout/Layout';
 import './MyAccount.css';
 
-type Props = {};
 
-export function MyAccount(props: Props): JSX.Element {
+
+export function MyAccount(): JSX.Element {
 
     return (
         <Layout>
