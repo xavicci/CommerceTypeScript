@@ -26,6 +26,8 @@ interface countContext {
     setSearchByTitle: React.Dispatch<React.SetStateAction<string>>,
     filteredItems: Array<Items>,
     setfilteredItems: React.Dispatch<React.SetStateAction<Array<Items>>>,
+    searchByCategory: string,
+    setSearchByCategory: React.Dispatch<React.SetStateAction<string>>,
 
 };
 
@@ -79,6 +81,10 @@ export const ShoppingCartProvider = ({ children }: Props) => {
     // Get products by title
     const [searchByTitle, setSearchByTitle] = useState<string>('');
 
+    // Get products by Category
+    const [searchByCategory, setSearchByCategory] = useState<string>('');
+    console.log(searchByCategory);
+
     useEffect(() => {
         const dataItems = useFetch(URL_API);
         dataItems.then(setItems);
@@ -87,13 +93,42 @@ export const ShoppingCartProvider = ({ children }: Props) => {
     const filteredItemsByTitle = (items: Items[], searchByTitle: string) => {
         return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLocaleLowerCase()))
     }
+    const filteredItemsCategory = (items: Items[], searchByCategory: string) => {
+        return items?.filter(item => item.category?.toLowerCase().includes(searchByCategory.toLocaleLowerCase()))
+    }
 
-    useEffect(() => {
-        if (searchByTitle) {
-            setfilteredItems(filteredItemsByTitle(items, searchByTitle))
+    const filterBy = (searchType: string, items: Items[], searchByTitle: string, searchByCategory: string): Items[] => {
+        if (searchType === 'BY_TITLE') {
+            return filteredItemsByTitle(items, searchByTitle);
         }
 
-    }, [items, searchByTitle]);
+        if (searchType === 'BY_CATEGORY') {
+            return filteredItemsCategory(items, searchByCategory);
+        }
+
+        if (searchType === 'BY_TITLE_AND_CATEGORY') {
+            return filteredItemsCategory(items, searchByCategory).filter(item => item.title.toLowerCase().includes(searchByTitle.toLocaleLowerCase()))
+        }
+        if (searchType === '') {
+            return items;
+        }
+        return items;
+    }
+    useEffect(() => {
+        if (searchByTitle && searchByCategory) {
+            setfilteredItems(filterBy('BY_TITLE_AND_CATEGORY', items, searchByTitle, searchByCategory))
+        }
+        if (searchByTitle && !searchByCategory) {
+            setfilteredItems(filterBy('BY_TITLE', items, searchByTitle, searchByCategory))
+        }
+        if (!searchByTitle && searchByCategory) {
+            setfilteredItems(filterBy('BY_CATEGORY', items, searchByTitle, searchByCategory))
+        }
+        if (!searchByTitle && !searchByCategory) {
+            setfilteredItems(filterBy('', items, searchByTitle, searchByCategory))
+        }
+
+    }, [items, searchByTitle, searchByCategory]);
 
     return (
         <ShoppingCartContext.Provider value={{
@@ -118,6 +153,8 @@ export const ShoppingCartProvider = ({ children }: Props) => {
             setSearchByTitle,
             filteredItems,
             setfilteredItems,
+            searchByCategory,
+            setSearchByCategory,
         }}>
             {children}
         </ShoppingCartContext.Provider>
@@ -155,5 +192,7 @@ export const useShoppingContext = (): countContext => {
         setSearchByTitle: currentShoppingContext.setSearchByTitle,
         filteredItems: currentShoppingContext.filteredItems,
         setfilteredItems: currentShoppingContext.setfilteredItems,
+        searchByCategory: currentShoppingContext.searchByCategory,
+        setSearchByCategory: currentShoppingContext.setSearchByCategory,
     };
 };

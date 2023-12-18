@@ -9,7 +9,7 @@ import './checkOutSideMenu.css';
 
 export const CheckOutSideMenu = (): JSX.Element => {
 
-    const { isCheckoutSideMenuOpen, closeCheckOutMenu, cartProducts, setCartProducts, setOrder } = useShoppingContext();
+    const { isCheckoutSideMenuOpen, closeCheckOutMenu, cartProducts, setCartProducts, setOrder, setSearchByTitle } = useShoppingContext();
 
     const closeCheckOutModal = () => {
         closeCheckOutMenu();
@@ -29,6 +29,7 @@ export const CheckOutSideMenu = (): JSX.Element => {
         };
         setOrder(order => [...order, orderToAdd]);
         setCartProducts([]);
+        setSearchByTitle('');
     }
 
     return (

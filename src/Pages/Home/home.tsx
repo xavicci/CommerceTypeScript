@@ -6,19 +6,15 @@ import './home.css';
 
 export function Home(): JSX.Element {
 
-    const { items, setSearchByTitle, searchByTitle, filteredItems } = useShoppingContext();
+    const { setSearchByTitle, filteredItems } = useShoppingContext();
 
     const renderView = () => {
-        if (searchByTitle?.length > 0) {
-            if (filteredItems?.length > 0) {
-                return (
-                    filteredItems?.map(value => <Card key={value.id} {...value} />)
-                )
-            } else {
-                return (<div> We don't have anything ...</div>)
-            }
+        if (filteredItems?.length > 0) {
+            return (
+                filteredItems?.map(value => <Card key={value.id} {...value} />)
+            )
         } else {
-            return items?.map(value => <Card key={value.id} {...value} />)
+            return (<div> We don't have anything ...</div>)
         }
     }
 

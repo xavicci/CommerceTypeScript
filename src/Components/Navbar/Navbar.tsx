@@ -7,7 +7,7 @@ type Props = { children?: React.ReactNode };
 
 export const Navbar = ({ }: Props): JSX.Element => {
 
-    const { count } = useShoppingContext();
+    const { cartProducts, setSearchByCategory, } = useShoppingContext();
 
     let activeStyle: string = 'underline underline-offset-4';
 
@@ -18,14 +18,16 @@ export const Navbar = ({ }: Props): JSX.Element => {
                 <li className="font-semibold text-lg">
                     <NavLink
                         to='/'
+                        className={({ isActive }) => isActive ? activeStyle : undefined}
                     >
-                        Shopi
+                        Zyneus Shop
                     </NavLink>
                 </li>
                 <li>
                     <NavLink
                         to='/'
                         className={({ isActive }) => isActive ? activeStyle : undefined}
+                        onClick={() => setSearchByCategory('')}
                     >
                         All
                     </NavLink>
@@ -33,15 +35,17 @@ export const Navbar = ({ }: Props): JSX.Element => {
                 <li>
                     <NavLink
                         to='/clothes'
+                        onClick={() => setSearchByCategory("women's clothing")}
                         className={({ isActive }) => isActive ? activeStyle : undefined}
                     >
-                        Clothes
+                        Women
                     </NavLink>
                 </li>
                 <li>
                     <NavLink
                         to='/electronics'
                         className={({ isActive }) => isActive ? activeStyle : undefined}
+                        onClick={() => setSearchByCategory('electronics')}
                     >
                         Electronics
                     </NavLink>
@@ -50,22 +54,25 @@ export const Navbar = ({ }: Props): JSX.Element => {
                     <NavLink
                         to='/furnitures'
                         className={({ isActive }) => isActive ? activeStyle : undefined}
+                        onClick={() => setSearchByCategory('jewelery')}
                     >
-                        Furnitures
+                        Jewelery
                     </NavLink>
                 </li>
                 <li>
                     <NavLink
                         to='/toys'
                         className={({ isActive }) => isActive ? activeStyle : undefined}
+                        onClick={() => setSearchByCategory("men's clothing")}
                     >
-                        Toys
+                        Mens
                     </NavLink>
                 </li>
                 <li>
                     <NavLink
                         to='/others'
                         className={({ isActive }) => isActive ? activeStyle : undefined}
+                        onClick={() => setSearchByCategory('others')}
                     >
                         Others
                     </NavLink>
@@ -101,7 +108,7 @@ export const Navbar = ({ }: Props): JSX.Element => {
                 </li>
                 <li className='flex items-center'>
                     <ShoppingBagIcon className='h-6 w-6' />
-                    <div>{count}</div>
+                    <div>{cartProducts.length}</div>
                 </li>
             </ul>
         </nav>
